@@ -1,4 +1,4 @@
-const { exception } = require('console');
+// puzzle: https://adventofcode.com/2020/day/5
 const fs = require('fs');
 const input = fs.readFileSync('./day5.dat').toString();
 
