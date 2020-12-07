@@ -42,20 +42,22 @@ rules.forEach( ruleLine => {
 
 console.log(allRules);
 
-function searchBag(allRules, bagType, refBagDetails) {
+function searchBag(allRules, bagType, refBagDetails, multiplier = 1) {
     
     const contents = allRules[bagType];
     let foundGoldBag = false;
     if(contents) {
         //console.log(bagType, 'has', Object.keys(contents))
-        Object.keys(contents).forEach(insideBagType => {
-            refBagDetails.total = refBagDetails.total + contents[insideBagType];
+        Object.keys(contents).forEach(insideBagType => {            
+            refBagDetails.total = refBagDetails.total + (multiplier * contents[insideBagType]);
+            //console.log(`Counting ${(multiplier * contents[insideBagType])} ${insideBagType} bags`)
             if(insideBagType === 'shiny gold') {
                 //console.log(bagType, 'can containy shiny gold');
                 foundGoldBag = true;
             } else {
                 //console.log(`Rummaging through ${insideBagType}`)
-                const innerResult = searchBag(allRules, insideBagType, refBagDetails);                                
+                const newMultiplier = multiplier * contents[insideBagType];
+                const innerResult = searchBag(allRules, insideBagType, refBagDetails, newMultiplier);                                
                 if(innerResult) {
                     // found gold bag in nested bag
                     //console.log('Nested bag had shiny bag')
@@ -87,6 +89,6 @@ console.log('Part A: Answer Set Size', answerSet.size);
 
 // for part B, we just want to walk the tree
 const shinyGoldBagDetails = { total: 0 };
-searchBag(allRules, 'shiny gold', shinyGoldBagDetails);
+searchBag(allRules, 'shiny gold', shinyGoldBagDetails, 1);
 
 console.log('Part B: Shiny gold bag details', shinyGoldBagDetails);
