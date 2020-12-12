@@ -1,6 +1,5 @@
 // puzzle: https://adventofcode.com/2020/day/9
 
-const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const fs = require('fs');
 const input = fs.readFileSync('./day9.dat').toString();
 
